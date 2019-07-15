@@ -394,6 +394,7 @@ extension JZLongPressWeekView: UIGestureRecognizerDelegate {
     @objc private func handleLongPressGesture(_ gestureRecognizer: UILongPressGestureRecognizer) {
         
         let pointInSelfView = gestureRecognizer.location(in: self)
+
         /// Used for get startDate of longPressView
         let pointInCollectionView = gestureRecognizer.location(in: collectionView)
         
@@ -414,7 +415,7 @@ extension JZLongPressWeekView: UIGestureRecognizerDelegate {
         guard let cell = currentMovingCell else { return }
         
         // The startDate of the longPressView (the date of top Y in longPressView)
-        var longPressViewStartDate: Date!
+        var longPressViewStartDate: Date = Date()
         
         // pressPosition is nil only when state equals began
         if pressPosition != nil {
