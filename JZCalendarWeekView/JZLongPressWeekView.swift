@@ -435,6 +435,8 @@ extension JZLongPressWeekView: UIGestureRecognizerDelegate {
         }
         
         if state == .began {
+            print("handleLongPressGesture: began START")
+
             currentEditingInfo.cellSize = currentLongPressType == .move ? cell.frame.size : CGSize(width: flowLayout.sectionWidth, height: flowLayout.hourHeight * CGFloat(addNewDurationMins)/60)
 
             pressPosition = currentLongPressType == .move ? (pointInCollectionView.x - cell.frame.origin.x, pointInCollectionView.y - cell.frame.origin.y) :
@@ -468,13 +470,19 @@ extension JZLongPressWeekView: UIGestureRecognizerDelegate {
                            options: .curveEaseOut,
                            animations: { longPressView.transform = CGAffineTransform.identity },
                            completion: nil)
+
+            print("handleLongPressGesture: began END")
             
         } else if state == .changed {
+            print("handleLongPressGesture: changed START")
+
             guard let pressPosition = pressPosition, let longPressView = longPressView else { return }
 
             let topYPoint = max(pointInSelfView.y - pressPosition.yToViewTop, longPressTopMarginY)
             longPressView.center = CGPoint(x: pointInSelfView.x - pressPosition.xToViewLeft + currentEditingInfo.cellSize.width/2,
                                            y: topYPoint + currentEditingInfo.cellSize.height/2)
+
+            print("handleLongPressGesture: changed END")
             
         } else if state == .cancelled {
             guard let longPressView = longPressView else { return }
@@ -488,15 +496,19 @@ extension JZLongPressWeekView: UIGestureRecognizerDelegate {
             longPressDelegate?.weekView(self, longPressType: currentLongPressType, didCancelLongPressAt: longPressViewStartDate)
             
         } else if state == .ended {
+            print("handleLongPressGesture: ended START")
+
             guard let longPressView = longPressView else { return }
 
             longPressView.removeFromSuperview()
-            
+
             if currentLongPressType == .addNew {
                 longPressDelegate?.weekView(self, didEndAddNewLongPressAt: longPressViewStartDate)
             } else if currentLongPressType == .move {
                 longPressDelegate?.weekView(self, editingEvent: currentEditingInfo.event, didEndMoveLongPressAt: longPressViewStartDate)
             }
+
+            print("handleLongPressGesture: ended END")
         }
         
         if state == .began || state == .changed {
@@ -515,6 +527,8 @@ extension JZLongPressWeekView: UIGestureRecognizerDelegate {
             }
             return
         }
+
+        print("handleLongPressGesture: ... DONE")
     }
     
     /// used by handleLongPressGesture only
