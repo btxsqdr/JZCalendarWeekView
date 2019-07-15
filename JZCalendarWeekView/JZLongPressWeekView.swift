@@ -274,7 +274,7 @@ open class JZLongPressWeekView: JZBaseWeekView {
     
     /// Initialise the long press view with longPressTimeLabel.
     open func initLongPressView(selectedCell: UICollectionViewCell?, type: LongPressType, startDate: Date) -> UIView {
-        guard let longPressDataSource = longPressDataSource else { return UIView() }
+        guard let longPressDataSource = longPressDataSource else { return UIView() }
 
         let longPressView = type == .move
             ? longPressDataSource.weekView(self, movingCell: selectedCell!, viewForMoveLongPressAt: startDate)
@@ -513,8 +513,8 @@ extension JZLongPressWeekView: UIGestureRecognizerDelegate {
         }
         
         if state == .began || state == .changed {
-            updateTimeLabel(time: longPressViewStartDate, pointInSelfView: pointInSelfView)
-            updateScroll(pointInSelfView: pointInSelfView)
+//            updateTimeLabel(time: longPressViewStartDate, pointInSelfView: pointInSelfView)
+//            updateScroll(pointInSelfView: pointInSelfView)
         }
         
         if state == .ended || state == .cancelled {
