@@ -404,6 +404,7 @@ extension JZLongPressWeekView: UIGestureRecognizerDelegate {
     /// - The Move type longPressView will keep the relative position during this longPress, that's how Apple Calendar did.
     /// - The AddNew type longPressView will be created centrally at your finger press position
     @objc private func handleLongPressGesture(_ gestureRecognizer: UILongPressGestureRecognizer) {
+        guard let flowLayout = flowLayout else { return }
         
         let pointInSelfView = gestureRecognizer.location(in: self)
 
@@ -533,8 +534,12 @@ extension JZLongPressWeekView: UIGestureRecognizerDelegate {
     
     /// used by handleLongPressGesture only
     private func getLongPressViewStartDate(pointInCollectionView: CGPoint, pointInSelfView: CGPoint) -> Date {
-        let longPressViewTopDate = getDateForPoint(pointCollectionView: CGPoint(x: pointInCollectionView.x, y: pointInCollectionView.y - pressPosition!.yToViewTop) , pointSelfView: pointInSelfView)
+        guard let pressPosition = pressPosition else { return Date() }
+
+        let longPressViewTopDate = getDateForPoint(pointCollectionView: CGPoint(x: pointInCollectionView.x, y: pointInCollectionView.y - pressPosition.yToViewTop), pointSelfView: pointInSelfView)
+
         let longPressViewStartDate = getLongPressStartDate(date: longPressViewTopDate, dateInSection: getDateForPointX(xCollectionView: pointInCollectionView.x, xSelfView: pointInSelfView.x), timeMinInterval: moveTimeMinInterval)
+
         return longPressViewStartDate
     }
     
