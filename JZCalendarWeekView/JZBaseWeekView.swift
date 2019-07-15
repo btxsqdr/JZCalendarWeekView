@@ -256,6 +256,10 @@ open class JZBaseWeekView: UIView {
             strongSelf.setHorizontalEdgesOffsetX()
         }
     }
+
+    open func reloadData() {
+        collectionView.reloadData()
+    }
     
     /// Notice: A temporary solution to fix the scroll from bottom issue when isScrolling
     /// The issue is because the decreased height value will cause the system to change the collectionView contentOffset, but the affected contentOffset will
