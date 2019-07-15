@@ -248,6 +248,7 @@ open class JZBaseWeekView: UIView {
 
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
+            
             strongSelf.updateAllDayBar(isScrolling: false)
             // initial day is one page before the settle day
             strongSelf.collectionView.setContentOffsetWithoutDelegate(CGPoint(x:strongSelf.contentViewWidth, y:strongSelf.getYOffset()), animated: false)
@@ -257,6 +258,7 @@ open class JZBaseWeekView: UIView {
         }
     }
 
+    /// Reload the collectionView and flowLayout
     open func reloadData() {
         collectionView.reloadData()
     }
